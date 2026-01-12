@@ -75,6 +75,34 @@
             color: var(--light-green);
         }
 
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-green);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
         .hero {
             margin-top: 70px;
             background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 100%);
@@ -543,8 +571,40 @@
         }
 
         @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
             .nav-links {
-                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: all 0.3s;
+                pointer-events: none;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .nav-links li {
+                text-align: center;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 0.5rem;
+                font-size: 1.1rem;
             }
 
             .hero h1 {
@@ -594,7 +654,12 @@
     <nav class="nav">
         <div class="nav-content">
             <div class="logo">Plot<span>NXT</span>™</div>
-            <ul class="nav-links">
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="#services">Services</a></li>
                 <li><a href="#greencare">GreenCare</a></li>
                 <li><a href="#b2b">Communities</a></li>
@@ -833,6 +898,24 @@
     </footer>
 
     <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -868,6 +951,7 @@
 
             try {
                 // Replace this URL with your Google Apps Script Web App URL
+                // The script will save data to Google Sheets AND send email notification
                 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwteX1ryj3n5qUdrUdH7Ky_RkGd-AJGMHbuNf7aRKL81L7b4WcRKt1pQhWbIsZYzkgs/exec';
                 
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
