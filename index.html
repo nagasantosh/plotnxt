@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlotNXT - Turning Idle Plots into Thriving Green Assets</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #1a3a0f;
+            --light-green: #4a7c2e;
+            --accent-green: #7fb069;
+            --earth-brown: #8b6f47;
+            --cream: #f5f1e8;
+            --white: #ffffff;
+            --text-dark: #2c2c2c;
+            --text-light: #666;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--cream);
+        }
+
+        .nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-green);
+        }
+
+        .logo span {
+            color: var(--light-green);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--light-green);
+        }
+
+        .hero {
+            margin-top: 70px;
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 100%);
+            color: white;
+            padding: 6rem 5% 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1200'),
+                linear-gradient(135deg, rgba(26, 58, 15, 0.9) 0%, rgba(74, 124, 46, 0.85) 100%);
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+            z-index: 0;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero .tagline {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            opacity: 0.95;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: var(--accent-green);
+            font-weight: 600;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary-green);
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--light-green);
+            border-radius: 2px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 5px solid var(--light-green);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .service-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .service-content {
+            padding: 2rem;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        .service-card .service-type {
+            color: var(--light-green);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .service-features {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .service-features li {
+            padding: 0.5rem 0;
+            color: var(--text-dark);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .service-features li::before {
+            content: '🌱';
+            position: absolute;
+            left: 0;
+        }
+
+        .tiers-section {
+            background: linear-gradient(to bottom, var(--cream), white);
+            padding: 4rem 5%;
+        }
+
+        .tiers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .tier-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border: 3px solid transparent;
+        }
+
+        .tier-card:hover {
+            border-color: var(--light-green);
+            transform: scale(1.05);
+        }
+
+        .tier-card h3 {
+            font-size: 1.8rem;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .tier-card .tier-subtitle {
+            color: var(--light-green);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .tier-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .b2b-section {
+            background: var(--primary-green);
+            color: white;
+            padding: 4rem 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .b2b-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .b2b-section > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .b2b-section h2 {
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .b2b-section p {
+            max-width: 900px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .b2b-benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 3rem auto;
+        }
+
+        .b2b-benefit {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .b2b-benefit h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .visual-banner {
+            background: linear-gradient(rgba(26, 58, 15, 0.8), rgba(74, 124, 46, 0.8)),
+                        url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1200');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 4rem 5%;
+            text-align: center;
+            color: white;
+        }
+
+        .visual-banner h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .contact-section {
+            background: var(--cream);
+            padding: 4rem 5%;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            color: white;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            background: rgba(255,255,255,0.2);
+            padding: 1rem;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-details h4 {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-details p {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .contact-form {
+            padding: 3rem;
+        }
+
+        .contact-form h3 {
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--light-green);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background: var(--light-green);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-green);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-message {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        .form-message.success {
+            background: #d4edda;
+            color: #155724;
+            display: block;
+        }
+
+        .form-message.error {
+            background: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .footer p {
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .tagline {
+                font-size: 1.3rem;
+            }
+
+            .services-grid,
+            .tiers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="logo">Plot<span>NXT</span>™</div>
+            <ul class="nav-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#greencare">GreenCare</a></li>
+                <li><a href="#b2b">Communities</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>PlotNXT™</h1>
+            <p class="tagline">Turning Idle Plots into Thriving Green Assets</p>
+            <p class="subtitle">This is Green As A Service™ (GAAS)</p>
+            <p>A new category of sustainable living. PlotNXT transforms underutilized residential land into productive, beautiful, and well-managed green spaces through a structured, service-led model.</p>
+            <a href="#services" class="cta-button">Explore Our Services</a>
+            <div class="scroll-indicator">↓</div>
+        </div>
+    </section>
+
+    <section class="section" id="services">
+        <h2 class="section-title">What PlotNXT Offers</h2>
+        <p style="text-align: center; max-width: 900px; margin: 0 auto 3rem; font-size: 1.1rem; color: var(--text-light);">
+            PlotNXT operates through three clearly defined service verticals that together form the Green As A Service™ model. This separation ensures clarity, transparency, and long-term sustainability for customers.
+        </p>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=800" alt="Garden Infrastructure" class="service-image">
+                <div class="service-content">
+                    <div class="service-icon">🌿</div>
+                    <h3>Ecoscape by PlotNXT</h3>
+                    <div class="service-type">Creation & Green Infrastructure (One-Time Setup)</div>
+                    <p>Ecoscape is PlotNXT's design-and-build vertical responsible for creating the green foundation on a plot. It covers all one-time and project-based work required to establish functional, plant-ready green spaces.</p>
+                    <ul class="service-features">
+                        <li>Soil preparation and pit digging</li>
+                        <li>Raised vegetable beds</li>
+                        <li>Plantation and drip irrigation systems</li>
+                        <li>Lawns and forest patches</li>
+                        <li>Rooftop gardens</li>
+                        <li>Green layout planning</li>
+                    </ul>
+                    <p style="margin-top: 1.5rem; font-style: italic; color: var(--light-green);">
+                        Ecoscape creates the foundation for sustainable green living.
+                    </p>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800" alt="Garden Care" class="service-image">
+                <div class="service-content">
+                    <div class="service-icon">🌱</div>
+                    <h3>GreenCare by PlotNXT</h3>
+                    <div class="service-type">Managed Monthly Green Services (Subscription)</div>
+                    <p>GreenCare is PlotNXT's subscription-based service for ongoing care, management, and productivity of green assets. After infrastructure is created, trained farmer couples take responsibility for maintaining plant health, cleanliness, and overall usability of the plot.</p>
+                    <ul class="service-features">
+                        <li>Regular visits and plant care</li>
+                        <li>Vegetable and fruit management</li>
+                        <li>Pruning and watering supervision</li>
+                        <li>Seasonal upkeep</li>
+                        <li>Trained farmer couples</li>
+                        <li>Four service tiers available</li>
+                    </ul>
+                    <p style="margin-top: 1.5rem; font-style: italic; color: var(--light-green);">
+                        GreenCare manages, nurtures, and sustains what Ecoscape creates.
+                    </p>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1592150621744-aca64f48394a?w=800" alt="On-Demand Garden Services" class="service-image">
+                <div class="service-content">
+                    <div class="service-icon">🌾</div>
+                    <h3>GreenOnCall by PlotNXT</h3>
+                    <div class="service-type">On-Demand Garden & Plot Services</div>
+                    <p>GreenOnCall is PlotNXT's on-demand service for customers who require specific gardening or plot-related work without a subscription. It is suitable for seasonal cleanups, pruning, bed preparation, plantation support, audits, or special requirements.</p>
+                    <ul class="service-features">
+                        <li>Seasonal cleanups</li>
+                        <li>Pruning and bed preparation</li>
+                        <li>Plantation support</li>
+                        <li>Garden audits</li>
+                        <li>Special requirements</li>
+                        <li>Same quality standards</li>
+                    </ul>
+                    <p style="margin-top: 1.5rem; font-style: italic; color: var(--light-green);">
+                        All services delivered using the same trained workforce and standards.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tiers-section" id="greencare">
+        <h2 class="section-title">GreenCare Service Tiers</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem; font-size: 1.1rem; color: var(--text-light);">
+            Choose the level of care and lifestyle integration appropriate to your needs. All plans focus on ongoing management.
+        </p>
+
+        <div class="tiers-grid">
+            <div class="tier-card">
+                <h3>🌳 Taru</h3>
+                <div class="tier-subtitle">Essential Care</div>
+                <p>Base plot maintenance and tree care focused on cleanliness, weed control, pruning, and overall land protection.</p>
+            </div>
+
+            <div class="tier-card">
+                <h3>🌺 Ruchira</h3>
+                <div class="tier-subtitle">Productive Living</div>
+                <p>Adds managed vegetable and flower beds with regular harvesting, replanting, and nutrition-focused care.</p>
+            </div>
+
+            <div class="tier-card">
+                <h3>🌸 Vrinda</h3>
+                <div class="tier-subtitle">Aesthetic & Landscape Care</div>
+                <p>Adds lawns, creepers, ornamental plants, and landscape maintenance with visual planning and refinement.</p>
+            </div>
+
+            <div class="tier-card">
+                <h3>🏡 Amayra</h3>
+                <div class="tier-subtitle">Lifestyle & Farmhouse Care</div>
+                <p>Adds farmhouse cleaning, pathways, potted plants, and readiness for personal stays or hosting.</p>
+            </div>
+        </div>
+
+        <p style="text-align: center; margin-top: 3rem; font-weight: 600; color: var(--primary-green); font-size: 1.1rem;">
+            Green infrastructure is created separately under Ecoscape.
+        </p>
+    </section>
+
+    <section class="b2b-section" id="b2b">
+        <h2>Communities, Ventures & B2B Engagements</h2>
+        <p>PlotNXT works with villa communities, gated layouts, real estate developers, and institutions through both Ecoscape and GreenCare.</p>
+        
+        <div class="b2b-benefits">
+            <div class="b2b-benefit">
+                <h4>🏘️ Bulk Green Creation</h4>
+                <p>Common-area landscaping, demo plots, and layout-level infrastructure through Ecoscape</p>
+            </div>
+            <div class="b2b-benefit">
+                <h4>🔄 Ongoing Maintenance</h4>
+                <p>Cluster-based servicing with optimized schedules and dedicated supervision through GreenCare</p>
+            </div>
+            <div class="b2b-benefit">
+                <h4>💰 Cost Efficiency</h4>
+                <p>Lower costs, higher reliability, and consistent quality across large properties</p>
+            </div>
+            <div class="b2b-benefit">
+                <h4>🎯 Single Vendor</h4>
+                <p>Eliminate multiple vendors and fragmented oversight with our comprehensive approach</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="visual-banner">
+        <h3>By combining thoughtful green infrastructure, trained local farmer couples, and ongoing management</h3>
+        <p style="font-size: 1.2rem; margin-top: 1rem;">PlotNXT unlocks the ecological, nutritional, and lifestyle value of idle plots</p>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <p style="margin-bottom: 2rem;">Ready to transform your plot? Reach out to us and let's start your green journey.</p>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div class="contact-details">
+                        <h4>Email</h4>
+                        <p>info@plotnxt.com</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <div class="contact-details">
+                        <h4>Phone</h4>
+                        <p>+91 98765 43210</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-details">
+                        <h4>Location</h4>
+                        <p>Hyderabad, India</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <h3>Send Us a Message</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="service">Interested In *</label>
+                        <select id="service" name="service" required>
+                            <option value="">Select a service</option>
+                            <option value="Ecoscape">Ecoscape - Green Infrastructure</option>
+                            <option value="GreenCare">GreenCare - Monthly Subscription</option>
+                            <option value="GreenOnCall">GreenOnCall - On-Demand</option>
+                            <option value="B2B">B2B - Communities & Ventures</option>
+                            <option value="General">General Inquiry</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Submit Inquiry</button>
+                    <div class="form-message" id="formMessage"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <h3 style="margin-bottom: 1rem;">PlotNXT™ - Green As A Service™</h3>
+        <p>Transforming idle plots into thriving green assets across Hyderabad</p>
+        <p style="margin-top: 2rem; opacity: 0.7;">© 2026 PlotNXT™ - All Rights Reserved</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Contact Form Submission
+        const contactForm = document.getElementById('contactForm');
+        const formMessage = document.getElementById('formMessage');
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = contactForm.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                service: document.getElementById('service').value,
+                message: document.getElementById('message').value,
+                timestamp: new Date().toISOString()
+            };
+
+            try {
+                // Replace this URL with your Google Apps Script Web App URL
+                const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwteX1ryj3n5qUdrUdH7Ky_RkGd-AJGMHbuNf7aRKL81L7b4WcRKt1pQhWbIsZYzkgs/exec';
+                
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                formMessage.textContent = 'Thank you! Your message has been sent successfully. We will contact you soon.';
+                formMessage.className = 'form-message success';
+                contactForm.reset();
+                
+            } catch (error) {
+                formMessage.textContent = 'Sorry, there was an error sending your message. Please try again or contact us directly.';
+                formMessage.className = 'form-message error';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Inquiry';
+                
+                setTimeout(() => {
+                    formMessage.style.display = 'none';
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>
