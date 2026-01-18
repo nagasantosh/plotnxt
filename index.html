@@ -157,6 +157,11 @@
             margin-bottom: 2rem;
             color: var(--accent-green);
             font-weight: 600;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            display: inline-block;
+            backdrop-filter: blur(5px);
         }
 
         .hero p {
@@ -288,6 +293,112 @@
         .tiers-section {
             background: linear-gradient(to bottom, var(--cream), white);
             padding: 4rem 5%;
+        }
+
+        .section-intro {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 3rem;
+            font-size: 1.1rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .detail-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--light-green);
+        }
+
+        .detail-card h3 {
+            font-size: 1.8rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        .detail-card .card-subtitle {
+            color: var(--light-green);
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-card h4 {
+            font-size: 1.4rem;
+            color: var(--primary-green);
+            margin: 2rem 0 1rem;
+        }
+
+        .detail-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .detail-card ul {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .detail-card ul li {
+            padding: 0.8rem 0;
+            color: var(--text-dark);
+            position: relative;
+            padding-left: 2rem;
+            line-height: 1.6;
+        }
+
+        .detail-card ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--light-green);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .workflow-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .workflow-step {
+            background: var(--cream);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-top: 3px solid var(--light-green);
+        }
+
+        .workflow-step h5 {
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .workflow-step p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .highlight-box {
+            background: var(--cream);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            border-left: 4px solid var(--light-green);
+        }
+
+        .highlight-box p {
+            color: var(--text-dark);
+            font-weight: 600;
+            margin: 0;
         }
 
         .tiers-grid {
@@ -752,8 +863,52 @@
     </section>
 
     <section class="tiers-section" id="greencare">
-        <h2 class="section-title">GreenCare Service Tiers</h2>
-        <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem; font-size: 1.1rem; color: var(--text-light);">
+        <h2 class="section-title">Our Service Offerings in Detail</h2>
+
+        <!-- Ecoscape Detailed Section -->
+        <div class="detail-card">
+            <h3>🌿 Ecoscape by PlotNXT</h3>
+            <div class="card-subtitle">Creation & Green Infrastructure (One-Time Setup)</div>
+            
+            <p>Ecoscape projects are designed to convert raw or underutilized land into functional, plant-ready green spaces. Each project is approached as a one-time creation exercise, tailored to the site's soil condition, layout, access, and intended long-term use.</p>
+
+            <h4>How Ecoscape Works</h4>
+            <div class="workflow-steps">
+                <div class="workflow-step">
+                    <h5>1. Site Assessment & Green Layout Planning</h5>
+                    <p>Plot evaluation, soil review, slope and drainage understanding, and functional layout planning.</p>
+                </div>
+                <div class="workflow-step">
+                    <h5>2. Ground Preparation & Infrastructure Creation</h5>
+                    <p>Soil preparation, pit digging, raised beds, irrigation routing, and base infrastructure.</p>
+                </div>
+                <div class="workflow-step">
+                    <h5>3. Plantation & Establishment</h5>
+                    <p>Plantation of trees, vegetables, lawns, or forest patches based on the agreed plan.</p>
+                </div>
+                <div class="workflow-step">
+                    <h5>4. Handover for Ongoing Care (Optional)</h5>
+                    <p>Once the green foundation is established, the plot can be transitioned to GreenCare for ongoing management.</p>
+                </div>
+            </div>
+
+            <h4>Typical Ecoscape Projects</h4>
+            <ul>
+                <li>Plot preparation for long-term green use</li>
+                <li>Raised vegetable beds and irrigation setup</li>
+                <li>Lawns and forest patches</li>
+                <li>Rooftop and terrace gardens</li>
+                <li>Green layout planning for new or idle plots</li>
+            </ul>
+
+            <div class="highlight-box">
+                <p>Ecoscape projects are custom-designed. Scope, timelines, and pricing are defined after site assessment.</p>
+            </div>
+        </div>
+
+        <!-- GreenCare Section -->
+        <h2 class="section-title" style="margin-top: 4rem;">GreenCare Service Tiers</h2>
+        <p class="section-intro">
             Choose the level of care and lifestyle integration appropriate to your needs. All plans focus on ongoing management.
         </p>
 
@@ -786,6 +941,36 @@
         <p style="text-align: center; margin-top: 3rem; font-weight: 600; color: var(--primary-green); font-size: 1.1rem;">
             Green infrastructure is created separately under Ecoscape.
         </p>
+
+        <!-- GreenOnCall Detailed Section -->
+        <div class="detail-card" style="margin-top: 4rem;">
+            <h3>🌾 GreenOnCall by PlotNXT</h3>
+            <div class="card-subtitle">On-Demand Garden & Plot Services</div>
+            
+            <p>GreenOnCall is designed for customers who need professional gardening or plot-related work without a monthly subscription. It offers flexible, task-based services delivered on request, using the same trained workforce and quality standards followed across PlotNXT services.</p>
+
+            <h4>When to Use GreenOnCall</h4>
+            <ul>
+                <li>One-time or occasional gardening needs</li>
+                <li>Seasonal or corrective work</li>
+                <li>Support for existing gardens or plots</li>
+                <li>Expert help without long-term commitment</li>
+            </ul>
+
+            <h4>GreenOnCall Service Categories</h4>
+            <ul>
+                <li>Planting & Repotting Services</li>
+                <li>Pruning, Trimming & Seasonal Cleanups</li>
+                <li>Vegetable Bed Preparation & Soil Work</li>
+                <li>Plant Health Checks & Recovery Support</li>
+                <li>Garden Setup & Re-organization</li>
+                <li>Garden Audits & Advisory Visits</li>
+            </ul>
+
+            <div class="highlight-box">
+                <p>GreenOnCall services are activity-based. Scope and charges are shared before execution.</p>
+            </div>
+        </div>
     </section>
 
     <section class="b2b-section" id="b2b">
